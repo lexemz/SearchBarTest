@@ -8,12 +8,17 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet var restaurantImage: UIImageView!
+    
+    var restaurant: Restaurant!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        title = restaurant.name
+        restaurantImage.image = UIImage(named: restaurant.name)
     }
-
-
+    
 }
 
