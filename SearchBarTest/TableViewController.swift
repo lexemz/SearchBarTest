@@ -27,20 +27,7 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
         
         // Setup the Search Controller
-        
-        // Данное свойство подписано под протокол UISearchResultsUpdating
-        // Передавая сам экземпляр класса в свойство, получателем информации из поисковой строки становится сам класс
-        searchController.searchResultsUpdater = self
-        
-        // По умолчанию VC с результатами поиска не позволяет взаимодействовать с контентом
-        searchController.obscuresBackgroundDuringPresentation = false
-        
-        searchController.searchBar.placeholder = "Type Restaurant"
-        
-        navigationItem.searchController = searchController
-        
-        // Отпустить строку поиска при переходе на другой экран
-        definesPresentationContext = true
+        setupSearchController()
     }
     
     // MARK: - Navigation
@@ -57,6 +44,22 @@ class TableViewController: UITableViewController {
         }
         
         viewController.restaurant = restaurant
+    }
+    
+    private func setupSearchController() {
+        // Данное свойство подписано под протокол UISearchResultsUpdating
+        // Передавая сам экземпляр класса в свойство, получателем информации из поисковой строки становится сам класс
+        searchController.searchResultsUpdater = self
+        
+        // По умолчанию VC с результатами поиска не позволяет взаимодействовать с контентом
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        searchController.searchBar.placeholder = "Type Restaurant"
+        
+        navigationItem.searchController = searchController
+        
+        // Отпустить строку поиска при переходе на другой экран
+        definesPresentationContext = true
     }
 }
 
@@ -96,9 +99,9 @@ extension TableViewController: UISearchResultsUpdating {
     
     private func filterContentForSearchText(_ searchText: String) {
         
-        filtredRestaurants = restaurants.filter({ restaurant in
+        filtredRestaurants = restaurants.filter { restaurant in
             restaurant.name.lowercased().contains(searchText.lowercased())
-        })
+        }
         
         tableView.reloadData()
     }
